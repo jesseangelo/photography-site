@@ -1,0 +1,33 @@
+{
+  "slug": "fall-of-the-brooklyn-botanic-garden",
+  "cover": "/images/fall-of-the-brooklyn-botanic-garden/cover.jpg",
+  "title": "Fall of the Brooklyn Botanic Garden",
+  "year": "2008",
+  "intro": "The garden at the end of its season — dried flowers, bare trees, first snow. An early book, photographed in Brooklyn.",
+  "statement": "",
+  "units": [
+    { "type": "single", "images": [ { "title": "Autumn leaves", "src": "/images/fall-of-the-brooklyn-botanic-garden/01-autumn-leaves.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Broken tree", "src": "/images/fall-of-the-brooklyn-botanic-garden/02-broken-tree.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Dried flowers at dusk", "src": "/images/fall-of-the-brooklyn-botanic-garden/03-dried-flowers-at-dusk.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Canopy", "src": "/images/fall-of-the-brooklyn-botanic-garden/04-canopy.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Bark and vine", "src": "/images/fall-of-the-brooklyn-botanic-garden/05-bark-and-vine.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Withered iris", "src": "/images/fall-of-the-brooklyn-botanic-garden/06-withered-iris.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Dried leaves", "src": "/images/fall-of-the-brooklyn-botanic-garden/07-dried-leaves.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Greenhouse window", "src": "/images/fall-of-the-brooklyn-botanic-garden/08-greenhouse-window.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Branches at sunset", "src": "/images/fall-of-the-brooklyn-botanic-garden/09-branches-at-sunset.jpg" } ] },
+    { "type": "single", "images": [ { "title": "The last rose", "src": "/images/fall-of-the-brooklyn-botanic-garden/10-the-last-rose.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Shoots in the snow", "src": "/images/fall-of-the-brooklyn-botanic-garden/11-shoots-in-the-snow.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Labels in the snow", "src": "/images/fall-of-the-brooklyn-botanic-garden/12-labels-in-the-snow.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Red berries", "src": "/images/fall-of-the-brooklyn-botanic-garden/13-red-berries.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Bud", "src": "/images/fall-of-the-brooklyn-botanic-garden/14-bud.jpg" } ] },
+    { "type": "single", "images": [ { "title": "The red gate", "src": "/images/fall-of-the-brooklyn-botanic-garden/15-the-red-gate.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Beautyberries", "src": "/images/fall-of-the-brooklyn-botanic-garden/16-beautyberries.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Dried grass", "src": "/images/fall-of-the-brooklyn-botanic-garden/17-dried-grass.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Dead palm", "src": "/images/fall-of-the-brooklyn-botanic-garden/18-dead-palm.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Rose in the thicket", "src": "/images/fall-of-the-brooklyn-botanic-garden/19-rose-in-the-thicket.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Birch", "src": "/images/fall-of-the-brooklyn-botanic-garden/20-birch.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Wilted leaves", "src": "/images/fall-of-the-brooklyn-botanic-garden/21-wilted-leaves.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Bare tree, gray sky", "src": "/images/fall-of-the-brooklyn-botanic-garden/22-bare-tree-gray-sky.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Frozen fountain", "src": "/images/fall-of-the-brooklyn-botanic-garden/23-frozen-fountain.jpg" } ] }
+  ]
+}

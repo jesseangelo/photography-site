@@ -1,0 +1,45 @@
+{
+  "portrait": "/images/portrait-parka.png",
+  "about": [
+    "Jesse Angelo is a photographer living in Aurora, Colorado. After roughly two decades in New York — much of it in Brooklyn — he now lives east of the city, where new development meets the open prairie of the High Plains.",
+    "He photographs slowly and returns often: a garden at the end of its season, an evening walk with a dog, the structures a demanding landscape is steadily wearing back to nothing. The work is made as books — sequenced bodies of work meant to be read in order, at a reader's pace.",
+    "It appeared that there was nothing there, but the more I slow down, the more I see."
+  ],
+  "cv": [
+    {
+      "year": "2027",
+      "text": "HOME: States of Belonging — Arvada Center Galleries, Arvada, CO (\"Plains Skyscraper\"), Jan 14 – Mar 28"
+    },
+    {
+      "year": "2026",
+      "text": "Framed: Shadow and Light — Black Box Gallery, Portland, OR, On-Line Annex (\"Lattice Silhouette\")"
+    }
+  ],
+  "books": [
+    {
+      "title": "None of This Belongs Here",
+      "details": "6 × 9 in · 40 pages · 2026",
+      "description": "The High Plains and the things built on it — the imposed one-mile grid, and the climate wearing it all back to nothing.",
+      "link": "https://www.blurb.com/b/12996602-none-of-this-belongs-here",
+      "cover": "/images/none-of-this-belongs-here/cover.jpg"
+    },
+    {
+      "title": "Evening Walks With Pancho",
+      "details": "5 × 8 in · 28 pages · 2026",
+      "description": "Evening walks in the neighborhood with a golden dog: fences, rooflines, dusk skies.",
+      "link": "https://www.blurb.com/b/12957474-evening-walks-with-pancho",
+      "cover": "/images/evening-walks-with-pancho/cover.jpg"
+    },
+    {
+      "title": "Fall of the Brooklyn Botanic Garden",
+      "details": "7 × 7 in · 50 pages · 2010",
+      "description": "A garden at the end of its season, photographed in late fall and first snow.",
+      "link": "https://www.blurb.com/b/1414704-fall-of-the-botanic-garden",
+      "cover": "/images/fall-of-the-brooklyn-botanic-garden/cover.jpg"
+    }
+  ],
+  "emailParts": [
+    "jesse",
+    "jesseangelo.com"
+  ]
+}

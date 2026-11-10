@@ -1,0 +1,15 @@
+{
+  "slug": "edgelands",
+  "title": "Edgelands",
+  "year": "",
+  "intro": "DRAFT — not published. New development meets the old prairie; dawn infrastructure work east of Aurora. Joins the site when the edit is finished.",
+  "statement": "",
+  "units": [
+    { "type": "single", "images": [ { "title": "Quincy Avenue at Dawn", "src": "/images/edgelands/01-quincy-avenue-at-dawn.jpg" } ] },
+    { "type": "wide", "images": [ { "title": "Light Trails Over the Landfill", "src": "/images/edgelands/02-light-trails-over-the-landfill.jpg" } ] },
+    { "type": "pair", "images": [ { "title": "Pole Sections at Dawn", "src": "/images/edgelands/03-pole-sections-at-dawn.jpg" }, { "title": "Utility Pole 30843", "src": "/images/edgelands/04-utility-pole-30843.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Transformer and Moon", "src": "/images/edgelands/05-transformer-and-moon.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Lattice Silhouette", "src": "/images/edgelands/06-lattice-silhouette.jpg" } ] },
+    { "type": "single", "images": [ { "title": "Plains Skyscraper", "src": "/images/edgelands/07-plains-skyscraper.jpg" } ] }
+  ]
+}
