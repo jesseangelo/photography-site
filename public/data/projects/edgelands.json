@@ -1,0 +1,86 @@
+{
+  "slug": "edgelands",
+  "title": "Edgelands",
+  "year": "",
+  "intro": "DRAFT — not published. New development meets the old prairie; dawn infrastructure work east of Aurora. Joins the site when the edit is finished.",
+  "statement": "",
+  "presentation": {
+    "mode": "story",
+    "theme": "dark",
+    "defaultTransition": "fade",
+    "snap": "soft"
+  },
+  "frames": [
+    {
+      "type": "title",
+      "title": "Edgelands",
+      "subtitle": "Where the grid meets the prairie",
+      "image": {
+        "src": "/images/edgelands/01-quincy-avenue-at-dawn.jpg",
+        "alt": "Quincy Avenue at Dawn"
+      },
+      "enter": "cut"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/edgelands/02-light-trails-over-the-landfill.jpg",
+        "alt": "Light Trails Over the Landfill"
+      },
+      "width": "bleed",
+      "enter": "throughBlack"
+    },
+    {
+      "type": "breath",
+      "size": "m",
+      "tone": "ink"
+    },
+    {
+      "type": "text",
+      "variant": "interstitial",
+      "tone": "ink",
+      "body": "It appeared that there was nothing there, but the more I slow down, the more I see."
+    },
+    {
+      "type": "pair",
+      "images": [
+        {
+          "src": "/images/edgelands/03-pole-sections-at-dawn.jpg",
+          "alt": "Pole Sections at Dawn"
+        },
+        {
+          "src": "/images/edgelands/04-utility-pole-30843.jpg",
+          "alt": "Utility Pole 30843"
+        }
+      ]
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/edgelands/05-transformer-and-moon.jpg",
+        "alt": "Transformer and Moon"
+      },
+      "width": "standard"
+    },
+    {
+      "type": "section",
+      "title": "The Grid"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/edgelands/06-lattice-silhouette.jpg",
+        "alt": "Lattice Silhouette"
+      },
+      "width": "standard"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/edgelands/07-plains-skyscraper.jpg",
+        "alt": "Plains Skyscraper"
+      },
+      "width": "standard"
+    }
+  ]
+}

@@ -1,5 +1,20 @@
 [
-  { "slug": "fall-of-the-brooklyn-botanic-garden", "file": "fall-of-the-brooklyn-botanic-garden.json" },
-  { "slug": "evening-walks-with-pancho", "file": "evening-walks-with-pancho.json" },
-  { "slug": "none-of-this-belongs-here", "file": "none-of-this-belongs-here.json" }
+  {
+    "slug": "fall-of-the-brooklyn-botanic-garden",
+    "file": "fall-of-the-brooklyn-botanic-garden.json"
+  },
+  {
+    "slug": "evening-walks-with-pancho",
+    "file": "evening-walks-with-pancho.json",
+    "hidden": true
+  },
+  {
+    "slug": "none-of-this-belongs-here",
+    "file": "none-of-this-belongs-here.json"
+  },
+  {
+    "slug": "edgelands",
+    "file": "edgelands.json",
+    "hidden": true
+  }
 ]
