@@ -5,45 +5,50 @@
   "year": "2026",
   "intro": "Evening walks in the neighborhood with a golden dog — fences, rooflines, and dusk skies. A 28-page book, 5 × 8 in.",
   "statement": "",
-  "units": [
+  "presentation": {
+    "mode": "gallery",
+    "theme": "light",
+    "defaultTransition": "cut",
+    "snap": "off"
+  },
+  "frames": [
     {
       "type": "pair",
       "images": [
         {
           "src": "/images/evening-walks-with-pancho/01-lamp-post-and-street-sign.jpg",
-          "title": "Lamp post and street sign",
+          "alt": "Lamp post and street sign",
           "w": 1263,
           "h": 1741
         },
         {
           "src": "/images/evening-walks-with-pancho/02-airplane-in-an-empty-sky.jpg",
-          "title": "Airplane in an empty sky",
+          "alt": "Airplane in an empty sky",
           "w": 1537,
           "h": 2475
         }
       ]
     },
     {
-      "type": "wide",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/03-pancho-in-motion.jpg",
-          "title": "Pancho in motion"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/03-pancho-in-motion.jpg",
+        "alt": "Pancho in motion"
+      },
+      "width": "bleed"
     },
     {
       "type": "pair",
       "images": [
         {
           "src": "/images/evening-walks-with-pancho/04-fence-and-siding.jpg",
-          "title": "Fence and siding",
+          "alt": "Fence and siding",
           "w": 1262,
           "h": 1740
         },
         {
           "src": "/images/evening-walks-with-pancho/05-cats-on-the-porch.jpg",
-          "title": "Cats on the porch",
+          "alt": "Cats on the porch",
           "w": 1262,
           "h": 1740
         }
@@ -54,66 +59,62 @@
       "images": [
         {
           "src": "/images/evening-walks-with-pancho/06-rooflines-i.jpg",
-          "title": "Rooflines I",
+          "alt": "Rooflines I",
           "w": 1263,
           "h": 1741
         },
         {
           "src": "/images/evening-walks-with-pancho/07-rooflines-ii.jpg",
-          "title": "Rooflines II",
+          "alt": "Rooflines II",
           "w": 1262,
           "h": 1740
         }
       ]
     },
     {
-      "type": "wide",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/08-pancho-sniffing-the-fence.jpg",
-          "title": "Pancho sniffing the fence"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/08-pancho-sniffing-the-fence.jpg",
+        "alt": "Pancho sniffing the fence"
+      },
+      "width": "bleed"
     },
     {
-      "type": "wide",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/09-sidewalk-at-sunset.jpg",
-          "title": "Sidewalk at sunset"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/09-sidewalk-at-sunset.jpg",
+        "alt": "Sidewalk at sunset"
+      },
+      "width": "bleed"
     },
     {
-      "type": "single",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/10-across-the-street.jpg",
-          "title": "Across the street"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/10-across-the-street.jpg",
+        "alt": "Across the street"
+      },
+      "width": "standard"
     },
     {
-      "type": "wide",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/11-rooflines-at-dusk.jpg",
-          "title": "Rooflines at dusk"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/11-rooflines-at-dusk.jpg",
+        "alt": "Rooflines at dusk"
+      },
+      "width": "bleed"
     },
     {
       "type": "pair",
       "images": [
         {
           "src": "/images/evening-walks-with-pancho/12-glowing-sign-at-dusk.jpg",
-          "title": "Glowing sign at dusk",
+          "alt": "Glowing sign at dusk",
           "w": 1262,
           "h": 1547
         },
         {
           "src": "/images/evening-walks-with-pancho/13-street-sign-and-pole.jpg",
-          "title": "Street sign and pole",
+          "alt": "Street sign and pole",
           "w": 872,
           "h": 1908
         }
@@ -124,61 +125,58 @@
       "images": [
         {
           "src": "/images/evening-walks-with-pancho/14-pancho-on-the-grass.jpg",
-          "title": "Pancho on the grass",
+          "alt": "Pancho on the grass",
           "w": 1087,
           "h": 2024
         },
         {
           "src": "/images/evening-walks-with-pancho/15-walkers-under-a-pink-sky.jpg",
-          "title": "Walkers under a pink sky",
+          "alt": "Walkers under a pink sky",
           "w": 1263,
           "h": 1547
         }
       ]
     },
     {
-      "type": "wide",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/16-roof-silhouette-last-light.jpg",
-          "title": "Roof silhouette, last light"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/16-roof-silhouette-last-light.jpg",
+        "alt": "Roof silhouette, last light"
+      },
+      "width": "bleed"
     },
     {
       "type": "pair",
       "images": [
         {
           "src": "/images/evening-walks-with-pancho/17-the-red-house.jpg",
-          "title": "The red house",
+          "alt": "The red house",
           "w": 1043,
           "h": 977
         },
         {
           "src": "/images/evening-walks-with-pancho/18-car-roof-at-dusk.jpg",
-          "title": "Car roof at dusk",
+          "alt": "Car roof at dusk",
           "w": 1044,
           "h": 977
         }
       ]
     },
     {
-      "type": "single",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/19-house-under-an-evening-cloud.jpg",
-          "title": "House under an evening cloud"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/19-house-under-an-evening-cloud.jpg",
+        "alt": "House under an evening cloud"
+      },
+      "width": "standard"
     },
     {
-      "type": "wide",
-      "images": [
-        {
-          "src": "/images/evening-walks-with-pancho/20-evening-walkers.jpg",
-          "title": "Evening walkers"
-        }
-      ]
+      "type": "photo",
+      "image": {
+        "src": "/images/evening-walks-with-pancho/20-evening-walkers.jpg",
+        "alt": "Evening walkers"
+      },
+      "width": "bleed"
     }
   ]
 }

@@ -14,7 +14,7 @@ export default function Home() {
         <p>Sequenced bodies of work from the High Plains, Brooklyn, and the neighborhood at dusk. For prints or books, <a href={`mailto:${emailAddress()}`}>write to me</a>.</p>
       </section>
       <section className="project-index">
-        {projects.map(p => {
+        {projects.filter(p => !p.hidden).map(p => {
           const img = firstImage(p)
           return (
             <Link key={p.slug} to={`/projects/${p.slug}`} className="project-card">
