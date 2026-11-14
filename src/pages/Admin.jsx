@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useProjects } from '../App'
 import {
-  validateProject, normalizeUnit, normalizeFrame,
+  validateProject, normalizeUnit, normalizeFrame, slugify,
   FRAME_TRANSITIONS, FRAME_WIDTHS, TEXT_VARIANTS, BREATH_SIZES
 } from '../lib/projects'
 import Unit from '../components/Unit'
@@ -25,6 +25,32 @@ const FRAME_TYPE_LIST = [
 ]
 const draftKey = slug => `ja-admin-draft-${slug}`
 const clone = o => JSON.parse(JSON.stringify(o))
+
+// Projects (or saved drafts) in the pre-frames "units" format are converted
+// on load, so the full frames editor always opens. Without this, a draft
+// saved by the old admin keeps the project stuck in the simple legacy
+// editor (title + filename only — no captions, alt text, or widths).
+function unitToFrame(unit) {
+  const imgs = (unit.images || []).map(im => ({ src: im.src || '', alt: im.alt ?? im.title ?? '' }))
+  const first = imgs[0] || { src: '', alt: '' }
+  switch (unit.type) {
+    case 'wide': return { type: 'photo', image: first, width: 'wide' }
+    case 'pair': return { type: 'pair', images: imgs.length ? imgs : [{ src: '', alt: '' }, { src: '', alt: '' }] }
+    case 'title': return { type: 'title', title: unit.text || '' }
+    case 'text': return { type: 'text', variant: 'statement', body: unit.text || '' }
+    default: return { type: 'photo', image: first, width: 'standard' }
+  }
+}
+
+function unitsProjectToFrames(project) {
+  if (!project || Array.isArray(project.frames) || !Array.isArray(project.units)) return project
+  const { units, ...rest } = project
+  return {
+    ...rest,
+    presentation: project.presentation || { mode: 'gallery', theme: 'light', defaultTransition: 'cut', snap: 'off' },
+    frames: units.map(u => normalizeFrame(unitToFrame(u)))
+  }
+}
 
 function defaultFrame(type, text) {
   switch (type) {
@@ -288,10 +314,40 @@ export default function Admin() {
   const [dragIdx, setDragIdx] = useState(null)
   const [folderImages, setFolderImages] = useState(null)
   const [focusReq, setFocusReq] = useState(null)
+  const [extraProjects, setExtraProjects] = useState([])
+  const [showNew, setShowNew] = useState(false)
+  const [newTitle, setNewTitle] = useState('')
+  const [newMsg, setNewMsg] = useState('')
   const [addType, setAddType] = useState('single')
   const [addTitle, setAddTitle] = useState('')
   const [addPartner, setAddPartner] = useState('')
   const dirtyRef = useRef(false)
+
+  // Published projects plus draft-only projects created here and not yet
+  // added to the site (they live only as local drafts until published).
+  const allProjects = useMemo(() => {
+    const extras = extraProjects.filter(e => !projects.some(p => p.slug === e.slug))
+    return [...projects, ...extras]
+  }, [projects, extraProjects])
+  const isUnpublished = !!project && !projects.some(p => p.slug === project.slug)
+
+  useEffect(() => {
+    if (!projects.length) return
+    const found = []
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (!key || !key.startsWith('ja-admin-draft-')) continue
+        const s = key.slice('ja-admin-draft-'.length)
+        if (projects.some(p => p.slug === s)) continue
+        const draft = JSON.parse(localStorage.getItem(key))
+        if (draft && (Array.isArray(draft.frames) || Array.isArray(draft.units))) {
+          found.push({ slug: s, title: draft.title || s, unpublished: true, frames: [{ type: 'title', title: draft.title || s }] })
+        }
+      }
+    } catch { /* ignore */ }
+    setExtraProjects(found)
+  }, [projects])
 
   const isFrames = !!project && Array.isArray(project.frames)
   const itemKey = isFrames ? 'frames' : 'units'
@@ -333,18 +389,23 @@ export default function Admin() {
 
   useEffect(() => {
     if (!slug) return
-    const published = projects.find(p => p.slug === slug)
-    if (!published) return
-    let initial = clone(published)
+    const source = allProjects.find(p => p.slug === slug)
+    if (!source) return
+    let initial = clone(source)
+    let fromDraft = false
     try {
       const saved = localStorage.getItem(draftKey(slug))
-      if (saved) initial = JSON.parse(saved)
+      if (saved) { initial = JSON.parse(saved); fromDraft = true }
     } catch { /* ignore */ }
-    setProject(initial)
+    const converted = unitsProjectToFrames(initial)
+    if (converted !== initial && fromDraft) {
+      try { localStorage.setItem(draftKey(slug), JSON.stringify(converted)) } catch { /* ignore */ }
+    }
+    setProject(converted)
     setJsonMsg('')
     setJsonDirty(false)
     dirtyRef.current = false
-  }, [slug, projects])
+  }, [slug, allProjects])
 
   useEffect(() => {
     if (project && !dirtyRef.current) setJsonText(JSON.stringify(project, null, 2))
@@ -402,7 +463,7 @@ export default function Admin() {
     if (problem) { setJsonMsg(problem); return }
     data.slug = slug
     if (Array.isArray(data.frames)) data.frames = data.frames.map(normalizeFrame)
-    else data.units = data.units.map(normalizeUnit)
+    else data = unitsProjectToFrames(data)
     save(data)
     setJsonDirty(false); dirtyRef.current = false
     setJsonMsg('Applied. The editor and preview now match the JSON.')
@@ -415,11 +476,35 @@ export default function Admin() {
     URL.revokeObjectURL(url)
   }
   const reset = () => {
+    if (isUnpublished) {
+      // A never-published project exists only as this draft — reset means discard it.
+      try { localStorage.removeItem(draftKey(slug)) } catch { /* ignore */ }
+      setExtraProjects(prev => prev.filter(e => e.slug !== slug))
+      setProject(null)
+      setSlug(projects[0] ? projects[0].slug : null)
+      return
+    }
     const published = projects.find(p => p.slug === slug)
     try { localStorage.removeItem(draftKey(slug)) } catch { /* ignore */ }
     setProject(clone(published))
     setJsonDirty(false); dirtyRef.current = false
     setJsonMsg('Reset to the published version.')
+  }
+
+  const createProject = () => {
+    const title = newTitle.trim()
+    const s = slugify(title)
+    if (!title || !s) { setNewMsg('Give the project a title first.'); return }
+    if (allProjects.some(p => p.slug === s)) { setNewMsg(`“${s}” is already taken — pick a different title.`); return }
+    const proj = {
+      slug: s, title, year: String(new Date().getFullYear()), intro: '', statement: '',
+      presentation: { mode: 'gallery', theme: 'light' },
+      frames: [{ type: 'title', title }]
+    }
+    try { localStorage.setItem(draftKey(s), JSON.stringify(proj)) } catch { /* ignore */ }
+    setExtraProjects(prev => [...prev, { slug: s, title, unpublished: true, frames: proj.frames }])
+    setNewTitle(''); setNewMsg(''); setShowNew(false)
+    setSlug(s)
   }
 
   const previewItems = useMemo(() => items, [items])
@@ -445,12 +530,36 @@ export default function Admin() {
       </p>
 
       <div className="admin-switcher">
-        {projects.map(p => (
+        {allProjects.map(p => (
           <button key={p.slug} className={p.slug === slug ? 'active' : ''} onClick={() => setSlug(p.slug)}>
-            {p.title}{p.hidden ? ' · hidden' : ''}
+            {p.title}{p.hidden ? ' · hidden' : ''}{p.unpublished ? ' · new' : ''}
           </button>
         ))}
+        <button onClick={() => { setShowNew(v => !v); setNewMsg('') }}>+ New project</button>
       </div>
+
+      {showNew && (
+        <div className="admin-newform">
+          <input placeholder="New project title" value={newTitle} onChange={e => setNewTitle(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') createProject() }} />
+          <button onClick={createProject}>Create draft</button>
+          <button onClick={() => setShowNew(false)}>Cancel</button>
+          {newTitle.trim() ? <span className="admin-newslug">slug: {slugify(newTitle) || '—'}</span> : null}
+          {newMsg ? <span className="admin-dirty">{newMsg}</span> : null}
+        </div>
+      )}
+
+      {isUnpublished && (
+        <div className="admin-unpub">
+          <strong>New project — not on the site yet.</strong> It exists only as a draft in this browser.
+          To publish it: use <em>Download JSON</em> below and save the file as
+          <code> public/data/projects/{slug}.json</code>, add this line to
+          <code> public/data/projects-index.json</code>:
+          <code> {`{ "slug": "${slug}", "file": "${slug}.json" }`}</code>
+          (add <code>"hidden": true</code> to keep it off the home page at first), create the folder
+          <code> public/images/{slug}/</code> for its images, then redeploy.
+        </div>
+      )}
 
       <section className="admin-fields">
         <label>Title <input value={project.title || ''} onChange={e => updateField('title', e.target.value)} /></label>
@@ -567,7 +676,7 @@ export default function Admin() {
         <div className="admin-json-actions">
           <button onClick={applyJson}>Apply JSON</button>
           <button onClick={downloadJson}>Download JSON</button>
-          <button onClick={reset}>Reset to published</button>
+          <button onClick={reset}>{isUnpublished ? 'Discard new project' : 'Reset to published'}</button>
           {jsonDirty ? <span className="admin-dirty">JSON edited — not yet applied</span> : null}
         </div>
       </section>
