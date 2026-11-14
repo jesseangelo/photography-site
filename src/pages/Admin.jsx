@@ -39,31 +39,120 @@ function defaultFrame(type, text) {
   }
 }
 
-function ImageFields({ image, onChange }) {
-  const im = image || {}
-  const set = (field, value) => onChange({ ...im, [field]: value })
+function Thumb({ src, localUrl }) {
+  const [failed, setFailed] = useState(false)
+  useEffect(() => { setFailed(false) }, [src, localUrl])
+  const shown = localUrl || src
+  if (!shown) return <div className="admin-thumb admin-thumb-empty">no image</div>
+  if (failed) return <div className="admin-thumb admin-thumb-empty" title={src}>not on site yet</div>
+  return <img className="admin-thumb" src={shown} alt="" loading="lazy" onError={() => setFailed(true)} />
+}
+
+// Buttons + panel for choosing an image without typing a filename:
+// pick from the files already in the project's folder on the site, or
+// browse the computer (the picked file's name fills in the src path).
+function ImageChooser({ slug, folderImages, currentSrc, onPick, onBrowse }) {
+  const [open, setOpen] = useState(false)
+  const fileRef = useRef(null)
+  const files = (folderImages && slug && folderImages[slug]) || []
   return (
-    <div className="admin-frame-fields">
-      <label className="full">Image file
-        <input placeholder="/images/project/file.jpg" value={im.src || ''} onChange={e => set('src', e.target.value)} />
-      </label>
-      <label>Alt text
-        <input placeholder="Describes the image" value={im.alt ?? im.title ?? ''} onChange={e => set('alt', e.target.value)} />
-      </label>
-      <label>Mobile file (optional)
-        <input placeholder="/images/project/file-mobile.jpg" value={im.mobileSrc || ''} onChange={e => set('mobileSrc', e.target.value)} />
-      </label>
-      <label>Width px
-        <input type="number" value={im.w || ''} onChange={e => set('w', e.target.value === '' ? undefined : Number(e.target.value))} />
-      </label>
-      <label>Height px
-        <input type="number" value={im.h || ''} onChange={e => set('h', e.target.value === '' ? undefined : Number(e.target.value))} />
-      </label>
+    <div className="admin-chooser">
+      <div className="admin-chooser-btns">
+        <button type="button" disabled={!files.length} onClick={() => setOpen(o => !o)}>
+          {open ? 'Close folder' : `Choose from folder (${files.length})`}
+        </button>
+        <button type="button" onClick={() => fileRef.current && fileRef.current.click()}>Browse…</button>
+        <input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }}
+          onChange={e => { const f = e.target.files && e.target.files[0]; if (f) onBrowse(f); e.target.value = '' }} />
+      </div>
+      {open && (
+        <div className="admin-pickgrid">
+          {files.map(path => (
+            <button type="button" key={path} className={path === currentSrc ? 'picked' : ''}
+              title={path} onClick={() => { onPick(path); setOpen(false) }}>
+              <img src={path} alt="" loading="lazy" />
+              <span>{path.split('/').pop()}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
-function FrameFields({ frame, update }) {
+// Shared browse handler: fills src from the picked file's name, previews the
+// local file immediately, and (when supported) fills in its dimensions.
+function useBrowse(slug, apply) {
+  const [localUrl, setLocalUrl] = useState(null)
+  const urlRef = useRef(null)
+  const onBrowse = file => {
+    const url = URL.createObjectURL(file)
+    if (urlRef.current) URL.revokeObjectURL(urlRef.current)
+    urlRef.current = url
+    setLocalUrl(url)
+    const probe = new Image()
+    probe.onload = () => apply(`/images/${slug}/${file.name}`, { w: probe.naturalWidth, h: probe.naturalHeight })
+    probe.onerror = () => apply(`/images/${slug}/${file.name}`, null)
+    probe.src = url
+  }
+  return [localUrl, onBrowse]
+}
+
+function ImageFields({ image, onChange, slug, folderImages }) {
+  const im = image || {}
+  const set = (field, value) => onChange({ ...im, [field]: value })
+  const [localUrl, onBrowse] = useBrowse(slug, (src, dims) =>
+    onChange({ ...im, src, ...(dims ? { w: dims.w, h: dims.h } : {}) }))
+  return (
+    <div>
+      <div className="admin-srcrow">
+        <Thumb src={im.src} localUrl={localUrl} />
+        <div className="admin-srcmain">
+          <label className="admin-srclabel">Image file
+            <input placeholder="/images/project/file.jpg" value={im.src || ''} onChange={e => set('src', e.target.value)} />
+          </label>
+          <ImageChooser slug={slug} folderImages={folderImages} currentSrc={im.src}
+            onPick={path => set('src', path)} onBrowse={onBrowse} />
+        </div>
+      </div>
+      <div className="admin-frame-fields">
+        <label>Alt text
+          <input placeholder="Describes the image" value={im.alt ?? im.title ?? ''} onChange={e => set('alt', e.target.value)} />
+        </label>
+        <label>Mobile file (optional)
+          <input placeholder="/images/project/file-mobile.jpg" value={im.mobileSrc || ''} onChange={e => set('mobileSrc', e.target.value)} />
+        </label>
+        <label>Width px
+          <input type="number" value={im.w || ''} onChange={e => set('w', e.target.value === '' ? undefined : Number(e.target.value))} />
+        </label>
+        <label>Height px
+          <input type="number" value={im.h || ''} onChange={e => set('h', e.target.value === '' ? undefined : Number(e.target.value))} />
+        </label>
+      </div>
+    </div>
+  )
+}
+
+function UnitImageFields({ image, onChange, slug, folderImages }) {
+  const im = image || {}
+  const set = (field, value) => onChange({ ...im, [field]: value })
+  const [localUrl, onBrowse] = useBrowse(slug, src => onChange({ ...im, src }))
+  return (
+    <div className="admin-srcrow">
+      <Thumb src={im.src} localUrl={localUrl} />
+      <div className="admin-srcmain">
+        <div className="admin-image-fields">
+          <input placeholder="Frame title" value={im.title || ''} onChange={e => set('title', e.target.value)} />
+          <input placeholder="/images/project/file.jpg" value={im.src || ''} onChange={e => set('src', e.target.value)} />
+        </div>
+        <ImageChooser slug={slug} folderImages={folderImages} currentSrc={im.src}
+          onPick={path => set('src', path)} onBrowse={onBrowse} />
+      </div>
+    </div>
+  )
+}
+
+function FrameFields({ frame, update, slug, folderImages }) {
   const set = patch => update({ ...frame, ...patch })
   return (
     <div>
@@ -94,7 +183,7 @@ function FrameFields({ frame, update }) {
           <label>Label
             <input value={frame.label || ''} onChange={e => set({ label: e.target.value })} />
           </label>
-          <div className="full"><ImageFields image={frame.image} onChange={image => set({ image })} /></div>
+          <div className="full"><ImageFields image={frame.image} onChange={image => set({ image })} slug={slug} folderImages={folderImages} /></div>
         </div>
       )}
 
@@ -122,7 +211,7 @@ function FrameFields({ frame, update }) {
           <label className="full">Body (blank line = new paragraph)
             <textarea rows={6} value={frame.body || ''} onChange={e => set({ body: e.target.value })} />
           </label>
-          <div className="full"><ImageFields image={frame.image} onChange={image => set({ image })} /></div>
+          <div className="full"><ImageFields image={frame.image} onChange={image => set({ image })} slug={slug} folderImages={folderImages} /></div>
         </div>
       )}
 
@@ -136,7 +225,7 @@ function FrameFields({ frame, update }) {
               ))}
             </div>
           </div>
-          <ImageFields image={frame.image} onChange={image => set({ image })} />
+          <ImageFields image={frame.image} onChange={image => set({ image })} slug={slug} folderImages={folderImages} />
           <div className="admin-frame-fields" style={{ marginTop: 8 }}>
             <label className="full">Caption (leave empty to hide)
               <input value={frame.caption || ''} onChange={e => set({ caption: e.target.value })} />
@@ -150,7 +239,7 @@ function FrameFields({ frame, update }) {
           {(frame.images || []).map((im, j) => (
             <div key={j} style={{ marginBottom: 10 }}>
               <p style={{ fontSize: 12, color: 'var(--quiet)', margin: '0 0 6px' }}>Image {j + 1}</p>
-              <ImageFields image={im} onChange={image => {
+              <ImageFields image={im} slug={slug} folderImages={folderImages} onChange={image => {
                 const images = (frame.images || []).slice()
                 images[j] = image
                 set({ images })
@@ -197,6 +286,8 @@ export default function Admin() {
   const [jsonDirty, setJsonDirty] = useState(false)
   const [jsonMsg, setJsonMsg] = useState('')
   const [dragIdx, setDragIdx] = useState(null)
+  const [folderImages, setFolderImages] = useState(null)
+  const [focusReq, setFocusReq] = useState(null)
   const [addType, setAddType] = useState('single')
   const [addTitle, setAddTitle] = useState('')
   const [addPartner, setAddPartner] = useState('')
@@ -210,6 +301,31 @@ export default function Admin() {
   useEffect(() => {
     if (!slug && projects.length) setSlug(projects[0].slug)
   }, [projects, slug])
+
+  useEffect(() => {
+    let live = true
+    fetch('/data/images-index.json')
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => { if (live && data) setFolderImages(data) })
+      .catch(() => { /* picker just stays unavailable */ })
+    return () => { live = false }
+  }, [])
+
+  // After an up/down move, keep the moved item in view, flash it, and put
+  // keyboard focus on its same-direction button so it can be clicked again
+  // (or Enter pressed) without hunting for it.
+  useEffect(() => {
+    if (!focusReq) return
+    const el = document.querySelector(`[data-admin-idx="${focusReq.idx}"]`)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      el.classList.remove('admin-unit-flash')
+      void el.offsetWidth
+      el.classList.add('admin-unit-flash')
+      const btn = el.querySelector(`button[aria-label="${focusReq.dir < 0 ? 'Move up' : 'Move down'}"]`)
+      if (btn) btn.focus({ preventScroll: true })
+    }
+  }, [focusReq])
 
   useEffect(() => {
     setAddType(isFrames ? 'photo' : 'single')
@@ -253,6 +369,7 @@ export default function Admin() {
     const list = items.slice()
     ;[list[i], list[j]] = [list[j], list[i]]
     save({ ...project, [itemKey]: list })
+    setFocusReq({ idx: j, dir, n: Date.now() })
   }
   const removeItem = i => save({ ...project, [itemKey]: items.filter((_, idx) => idx !== i) })
   const reorder = (from, to) => {
@@ -320,7 +437,9 @@ export default function Admin() {
         This page is unlinked — you’re here by bookmark. It holds no credentials and can’t publish.
         Edits save as a draft in this browser only. To publish: download the JSON, drop it into
         <code> public/data/projects/</code> in the site project (replacing the old file), and redeploy.
-        New image files go in <code>public/images/&lt;project&gt;/</code> with the filename in the frame’s <em>src</em> field.
+        New image files go in <code>public/images/&lt;project&gt;/</code>; in each frame use
+        <em> Choose from folder</em> to pick a file that’s already there, or <em>Browse…</em> to take the
+        filename from a file on this computer (that file still needs to be copied into the folder before deploying).
         Projects marked <em>hidden</em> stay off the home index but still open by direct URL; that flag lives in
         <code> public/data/projects-index.json</code>, not in the project JSON.
       </p>
@@ -378,6 +497,7 @@ export default function Admin() {
           <div
             key={i}
             className="admin-unit"
+            data-admin-idx={i}
             draggable
             onDragStart={() => setDragIdx(i)}
             onDragOver={e => e.preventDefault()}
@@ -398,25 +518,18 @@ export default function Admin() {
               </div>
             </div>
             {isFrames ? (
-              <FrameFields frame={item} update={item2 => updateItem(i, item2)} />
+              <FrameFields frame={item} update={item2 => updateItem(i, item2)} slug={slug} folderImages={folderImages} />
             ) : (item.type === 'title' || item.type === 'text') ? (
               <textarea className="admin-unit-text" rows={item.type === 'text' ? 6 : 2}
                 value={item.text || ''} onChange={e => updateItem(i, { ...item, text: e.target.value })} />
             ) : (
               <div className="admin-unit-images">
                 {(item.images || []).map((im, j) => (
-                  <div key={j} className="admin-image-fields">
-                    <input placeholder="Frame title" value={im.title || ''}
-                      onChange={e => {
-                        const images = item.images.slice(); images[j] = { ...images[j], title: e.target.value }
-                        updateItem(i, { ...item, images })
-                      }} />
-                    <input placeholder="/images/project/file.jpg" value={im.src || ''}
-                      onChange={e => {
-                        const images = item.images.slice(); images[j] = { ...images[j], src: e.target.value }
-                        updateItem(i, { ...item, images })
-                      }} />
-                  </div>
+                  <UnitImageFields key={j} image={im} slug={slug} folderImages={folderImages}
+                    onChange={image => {
+                      const images = item.images.slice(); images[j] = image
+                      updateItem(i, { ...item, images })
+                    }} />
                 ))}
               </div>
             )}
