@@ -19,7 +19,7 @@
     {
       "type": "text",
       "variant": "statement",
-      "body": "They landed in the east and developed towns, cities, and states. The east was planned and established organically, in harmony with the topography and the surrounding landscape. The landscape and climate were largely similar to what had existed in the Old World.\n\nExpeditions westward expanded into a territory wholly unlike what was known before. It revealed a scale that almost defied comprehension. Faced with this vast and unfamiliar expanse, there was no way to settle it organically; the primary way to bring order to this wilderness was a geometric grid of one-mile squares.\n\nLacking steady water and shelter, the High Plains are often considered a quiet liminal space stretched between two coasts. The lush variety of eastern forests and oceans gives way to an environment that is very much the opposite: relentless winds, dry earth, and abundant, unfiltered sun. It is a demanding climate that steadily tests everything existing upon it, gradually wearing away whatever has been built or grown and returning the landscape to its natural state.\n\nThis grid is manufactured and inorganic, set against the ancient rhythm of the land. Indigenous peoples inhabited this place but built no permanent structures here - partly because the land provided no materials for permanence, and partly because little ultimately subsists against the elements.\n\nUltimately, none of this belongs here."
+      "body": "They landed in the east and developed towns, cities, and states. The east was established organically, in harmony with the topography and the surrounding landscape. The landscape and climate were largely similar to what had existed in the Old World.\n\nExpeditions westward expanded into a territory wholly unlike what was known before. They revealed a scale that defied comprehension. Faced with this vast and unfamiliar expanse, there was no way to settle it like the east. To bring order to this wilderness, a geometric grid of one-mile squares was devised.\n\nLacking steady water and shelter, the High Plains are often considered a quiet liminal space between the two coasts. The lush variety of the forests and oceans gives way to an environment that is very much the opposite: relentless winds, dry earth, and abundant, unfiltered sun. It is a demanding climate that steadily tests everything existing upon it, gradually wearing away whatever has been built or grown and returning the landscape to its natural state.\n\nThis grid is manufactured and inorganic, set against the ancient rhythm of the land. Indigenous peoples inhabited this place but built no permanent structures here - partly because the land provided no materials for permanence, and partly because little ultimately subsists against the elements.\n\nUltimately, none of this belongs here."
     },
     {
       "type": "photo",
@@ -48,82 +48,42 @@
     {
       "type": "photo",
       "image": {
-        "src": "/images/none-of-this-belongs-here/04-small-shed-under-a-bare-tree.jpg",
-        "alt": "Small shed under a bare tree"
+        "src": "/images/none-of-this-belongs-here/shack-and-mailbox.jpg",
+        "alt": "Small shed under a bare tree and lone mailbox"
       },
-      "width": "standard"
+      "width": "wide"
     },
     {
       "type": "photo",
       "image": {
-        "src": "/images/none-of-this-belongs-here/05-sign-in-the-snow.jpg",
-        "alt": "Sign in the snow"
+        "src": "/images/none-of-this-belongs-here/crossing-and-pole.jpg",
+        "alt": "Railroad crossing and utility pole"
       },
-      "width": "standard"
+      "width": "wide"
     },
     {
       "type": "photo",
       "image": {
-        "src": "/images/none-of-this-belongs-here/06-storm-over-a-fence-line.jpg",
-        "alt": "Storm over a fence line"
+        "src": "/images/none-of-this-belongs-here/broken-sign-and-broken-lines.jpg",
+        "alt": "Broken sign and broken gutters"
       },
-      "width": "standard"
+      "width": "wide"
     },
     {
       "type": "photo",
       "image": {
-        "src": "/images/none-of-this-belongs-here/07-utility-pole-and-wires.jpg",
-        "alt": "Utility pole and wires"
+        "src": "/images/none-of-this-belongs-here/long-arm-and-dust.jpg",
+        "alt": "Crane with umbrellas and bust"
       },
-      "width": "standard"
+      "width": "wide"
     },
     {
       "type": "photo",
       "image": {
-        "src": "/images/none-of-this-belongs-here/08-empty-sign-frame.jpg",
-        "alt": "Empty sign frame"
+        "src": "/images/none-of-this-belongs-here/D37_9336.jpg",
+        "alt": "Dusty mountains"
       },
-      "width": "standard"
-    },
-    {
-      "type": "photo",
-      "image": {
-        "src": "/images/none-of-this-belongs-here/09-barn-framing.jpg",
-        "alt": "Barn framing"
-      },
-      "width": "standard"
-    },
-    {
-      "type": "photo",
-      "image": {
-        "src": "/images/none-of-this-belongs-here/10-corrugated-wall.jpg",
-        "alt": "Corrugated wall"
-      },
-      "width": "standard"
-    },
-    {
-      "type": "photo",
-      "image": {
-        "src": "/images/none-of-this-belongs-here/11-church-tower-with-crane.jpg",
-        "alt": "Church tower with crane"
-      },
-      "width": "standard"
-    },
-    {
-      "type": "photo",
-      "image": {
-        "src": "/images/none-of-this-belongs-here/12-stone-arch-and-gate.jpg",
-        "alt": "Stone arch and gate"
-      },
-      "width": "standard"
-    },
-    {
-      "type": "photo",
-      "image": {
-        "src": "/images/none-of-this-belongs-here/13-abandoned-house-in-tall-grass.jpg",
-        "alt": "Abandoned house in tall grass"
-      },
-      "width": "bleed"
+      "width": "wide"
     },
     {
       "type": "photo",
@@ -160,8 +120,40 @@
     {
       "type": "photo",
       "image": {
-        "src": "/images/none-of-this-belongs-here/18-white-trailer-in-the-brush.jpg",
-        "alt": "White trailer in the brush"
+        "src": "/images/none-of-this-belongs-here/D37_9337.jpg",
+        "alt": "Dead tree through earthmover"
+      },
+      "width": "bleed"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/none-of-this-belongs-here/D37_9419.jpg",
+        "alt": "Farm house and pipes"
+      },
+      "width": "bleed"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/none-of-this-belongs-here/D37_9429.jpg",
+        "alt": "Dead tree and new development"
+      },
+      "width": "bleed"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/none-of-this-belongs-here/D37_9238.jpg",
+        "alt": "Private property"
+      },
+      "width": "bleed"
+    },
+    {
+      "type": "photo",
+      "image": {
+        "src": "/images/none-of-this-belongs-here/D37_9424.jpg",
+        "alt": "Overgrown new neighborhood"
       },
       "width": "bleed"
     },
